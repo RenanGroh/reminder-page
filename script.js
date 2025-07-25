@@ -111,9 +111,11 @@ class DailyReminderApp {
       if (this.textarea.value.trim() === '') {
         this.customPlaceholder.style.opacity = '0.6';
         this.customPlaceholder.style.pointerEvents = 'none';
+        this.textarea.classList.remove('has-content');
       } else {
         this.customPlaceholder.style.opacity = '0';
         this.customPlaceholder.style.pointerEvents = 'none';
+        this.textarea.classList.add('has-content');
       }
     }
   }
@@ -196,6 +198,7 @@ class DailyReminderApp {
       if (savedContent !== null) {
         this.textarea.value = savedContent;
         this.updateCharCount();
+        this.updatePlaceholderVisibility();
         this.setSaveStatus("saved");
       }
     } catch (error) {
@@ -237,6 +240,7 @@ class DailyReminderApp {
     this.textarea.value = "";
     this.saveContent();
     this.updateCharCount();
+    this.updatePlaceholderVisibility();
     this.hideClearConfirmation();
     this.textarea.focus();
   }

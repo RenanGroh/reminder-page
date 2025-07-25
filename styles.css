@@ -84,7 +84,17 @@ body {
   overflow-y: auto;
   padding-top: 25vh;
   box-sizing: border-box;
-  caret-color: transparent; /* Remove o cursor piscando */
+  caret-color: transparent; /* Remove o cursor por padrão */
+}
+
+/* Mostra o cursor apenas quando há texto */
+.reminder-input:not(:placeholder-shown) {
+  caret-color: var(--text-primary);
+}
+
+/* Quando o textarea tem conteúdo, mostra o cursor */
+.reminder-input.has-content {
+  caret-color: var(--text-primary);
 }
 
 .reminder-input::placeholder {
@@ -94,9 +104,9 @@ body {
 /* Placeholder customizado */
 .custom-placeholder {
   position: absolute;
-  top: 50%;
+  top: 25vh;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
   color: var(--text-placeholder);
   opacity: 0.6;
   font-size: 32px;
@@ -104,11 +114,12 @@ body {
   pointer-events: none;
   font-family: inherit;
   transition: opacity var(--transition-normal);
+  text-align: center;
 }
 
 /* Ponto de interrogação piscando */
 .blinking-question {
-  animation: fadeInOut 2s ease-in-out infinite;
+  animation: fadeInOut 4s ease-in-out infinite;
 }
 
 @keyframes fadeInOut {
@@ -289,10 +300,12 @@ body {
 
   .reminder-input {
     font-size: 24px;
+    padding-top: 30vh;
   }
 
   .custom-placeholder {
     font-size: 24px;
+    top: 30vh;
   }
 
   .floating-controls {
@@ -328,11 +341,13 @@ body {
 @media (max-width: 480px) {
   .reminder-input {
     font-size: 18px;
+    padding-top: 35vh;
     /* Prevents zoom on iOS */
   }
 
   .custom-placeholder {
     font-size: 18px;
+    top: 35vh;
   }
 
   .floating-controls {
@@ -365,9 +380,10 @@ body {
   border-radius: 4px;
 }
 
-/* Custom scrollbar for textarea */
+/* Custom scrollbar for textarea - invisível */
 .reminder-input::-webkit-scrollbar {
-  width: 8px;
+  width: 0px;
+  background: transparent;
 }
 
 .reminder-input::-webkit-scrollbar-track {
@@ -375,12 +391,16 @@ body {
 }
 
 .reminder-input::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
+  background: transparent;
 }
 
 .reminder-input::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
+  background: transparent;
+}
+
+/* Para Firefox - esconde a scrollbar */
+.reminder-input {
+  scrollbar-width: none;
 }
 
 /* Print styles */
