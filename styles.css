@@ -7,105 +7,127 @@
 
 /* CSS Custom Properties for theming */
 :root {
-  /* Light theme colors */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --text-primary: #2c3e50;
-  --text-secondary: #6c757d;
-  --border-color: #e9ecef;
-  --accent-color: #007bff;
+  /* Dark theme colors */
+  --bg-primary: #0d0a08;
+  --text-primary: #e9ecef;
+  --text-secondary: #adb5bd;
+  --text-placeholder: #6c757d;
+  --accent-color: #0d0a08;
   --danger-color: #dc3545;
   --success-color: #28a745;
   --warning-color: #ffc107;
 
   /* Shadows */
-  --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.1);
-  --shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.4);
 
   /* Transitions */
   --transition-fast: 0.15s ease;
   --transition-normal: 0.3s ease;
 }
 
-/* Dark theme */
-[data-theme="dark"] {
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #2d2d2d;
-  --text-primary: #e9ecef;
-  --text-secondary: #adb5bd;
-  --border-color: #495057;
-  --accent-color: #0d6efd;
-  --danger-color: #dc3545;
-  --success-color: #198754;
-  --warning-color: #ffc107;
-
-  --shadow-light: 0 1px 3px rgba(0, 0, 0, 0.3);
-  --shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.3);
+/* Light theme */
+[data-theme="light"] {
+  --bg-primary: #ffffff;
+  --text-primary: #2c3e50;
+  --text-secondary: #6c757d;
+  --text-placeholder: #adb5bd;
+  --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 /* Base typography and layout */
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, sans-serif;
-  line-height: 1.6;
-  color: var(--text-primary);
   background-color: var(--bg-primary);
+  color: var(--text-primary);
   height: 100vh;
+  width: 100vw;
   overflow: hidden;
   transition: background-color var(--transition-normal),
     color var(--transition-normal);
 }
 
-/* App container */
+/* App container - centers everything */
 .app-container {
-  display: flex;
-  flex-direction: column;
   height: 100vh;
-  max-width: 100%;
-}
-
-/* Header */
-.header {
+  width: 100vw;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding: 1rem 1.5rem;
-  background-color: var(--bg-secondary);
-  border-bottom: 1px solid var(--border-color);
-  flex-shrink: 0;
-  transition: background-color var(--transition-normal),
-    border-color var(--transition-normal);
+  padding: 2rem;
 }
 
-.app-title {
-  font-size: 1.25rem;
-  font-weight: 600;
+/* Main textarea - large, centered, clean */
+.reminder-input {
+  width: 100%;
+  max-width: 800px;
+  height: 60vh;
+  border: none;
+  outline: none;
+  background-color: transparent;
   color: var(--text-primary);
-  margin: 0;
+  font-family: inherit;
+  font-size: 32px;
+  line-height: 1.4;
+  resize: none;
+  text-align: center;
+  transition: color var(--transition-normal);
+  overflow-y: auto;
 }
 
-.controls {
+.reminder-input::placeholder {
+  color: var(--text-placeholder);
+  opacity: 0.6;
+}
+
+.reminder-input:focus {
+  outline: none;
+}
+
+/* Floating controls - top right */
+.floating-controls {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
   display: flex;
-  gap: 0.75rem;
+  gap: 1rem;
+  z-index: 100;
+}
+
+/* Floating status - bottom center */
+.floating-status {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
   align-items: center;
+  gap: 0.5rem;
+  font-size: 14px;
+  color: var(--text-secondary);
+  opacity: 0.7;
+  z-index: 100;
 }
 
 /* Buttons */
 .btn {
-  padding: 0.5rem 1rem;
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
-  background-color: var(--bg-primary);
+  padding: 0.75rem 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.05);
   color: var(--text-primary);
-  font-size: 0.875rem;
+  font-size: 14px;
   font-weight: 500;
   cursor: pointer;
   transition: all var(--transition-fast);
   outline: none;
+  backdrop-filter: blur(10px);
 }
 
 .btn:hover {
-  background-color: var(--bg-secondary);
+  background-color: rgba(255, 255, 255, 0.1);
   transform: translateY(-1px);
   box-shadow: var(--shadow-light);
 }
@@ -120,86 +142,34 @@ body {
 }
 
 .btn-icon {
-  padding: 0.5rem;
-  font-size: 1rem;
+  padding: 0.75rem;
+  font-size: 16px;
   min-width: auto;
 }
 
 .btn-danger {
-  background-color: var(--danger-color);
-  color: white;
-  border-color: var(--danger-color);
+  background-color: rgba(220, 53, 69, 0.1);
+  color: var(--danger-color);
+  border-color: rgba(220, 53, 69, 0.3);
 }
 
 .btn-danger:hover {
-  background-color: #c82333;
-  border-color: #bd2130;
+  background-color: rgba(220, 53, 69, 0.2);
+  border-color: rgba(220, 53, 69, 0.5);
 }
 
 .btn-secondary {
-  background-color: var(--text-secondary);
-  color: white;
-  border-color: var(--text-secondary);
+  background-color: rgba(108, 117, 125, 0.1);
+  color: var(--text-secondary);
+  border-color: rgba(108, 117, 125, 0.3);
 }
 
 .btn-secondary:hover {
-  background-color: #5a6268;
-  border-color: #545b62;
+  background-color: rgba(108, 117, 125, 0.2);
+  border-color: rgba(108, 117, 125, 0.5);
 }
 
-/* Main content area */
-.main-content {
-  flex: 1;
-  padding: 1.5rem;
-  overflow: hidden;
-}
-
-/* Textarea */
-.reminder-input {
-  width: 100%;
-  height: 100%;
-  border: none;
-  outline: none;
-  background-color: transparent;
-  color: var(--text-primary);
-  font-family: inherit;
-  font-size: 1rem;
-  line-height: 1.6;
-  resize: none;
-  transition: color var(--transition-normal);
-}
-
-.reminder-input::placeholder {
-  color: var(--text-secondary);
-  opacity: 0.7;
-}
-
-.reminder-input:focus {
-  outline: none;
-}
-
-/* Footer */
-.footer {
-  padding: 0.75rem 1.5rem;
-  background-color: var(--bg-secondary);
-  border-top: 1px solid var(--border-color);
-  flex-shrink: 0;
-  transition: background-color var(--transition-normal),
-    border-color var(--transition-normal);
-}
-
-.status-info {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.75rem;
-  color: var(--text-secondary);
-}
-
-.save-status {
-  font-weight: 500;
-}
-
+/* Save status styling */
 .save-status.saving {
   color: var(--warning-color);
 }
@@ -223,12 +193,13 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
   transition: opacity var(--transition-normal);
+  backdrop-filter: blur(10px);
 }
 
 .modal.hidden {
@@ -238,7 +209,8 @@ body {
 
 .modal-content {
   background-color: var(--bg-primary);
-  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
   padding: 2rem;
   box-shadow: var(--shadow-medium);
   max-width: 400px;
@@ -251,6 +223,7 @@ body {
   margin-bottom: 1rem;
   color: var(--text-primary);
   font-size: 1.25rem;
+  font-weight: 600;
 }
 
 .modal-content p {
@@ -267,34 +240,34 @@ body {
 
 /* Responsive design */
 @media (max-width: 768px) {
-  .header {
+  .app-container {
     padding: 1rem;
   }
 
-  .app-title {
-    font-size: 1.125rem;
+  .reminder-input {
+    font-size: 24px;
+    height: 70vh;
   }
 
-  .controls {
+  .floating-controls {
+    top: 1rem;
+    right: 1rem;
     gap: 0.5rem;
   }
 
+  .floating-status {
+    bottom: 1rem;
+    font-size: 12px;
+  }
+
   .btn {
-    padding: 0.4rem 0.8rem;
-    font-size: 0.8rem;
+    padding: 0.6rem 1rem;
+    font-size: 12px;
   }
 
   .btn-icon {
-    padding: 0.4rem;
-    font-size: 0.9rem;
-  }
-
-  .main-content {
-    padding: 1rem;
-  }
-
-  .footer {
-    padding: 0.75rem 1rem;
+    padding: 0.6rem;
+    font-size: 14px;
   }
 
   .modal-content {
@@ -308,20 +281,18 @@ body {
 }
 
 @media (max-width: 480px) {
-  .header {
-    padding: 0.75rem;
-  }
-
-  .app-title {
-    font-size: 1rem;
-  }
-
-  .main-content {
-    padding: 0.75rem;
-  }
-
   .reminder-input {
-    font-size: 16px; /* Prevents zoom on iOS */
+    font-size: 18px;
+    /* Prevents zoom on iOS */
+  }
+
+  .floating-controls {
+    top: 0.5rem;
+    right: 0.5rem;
+  }
+
+  .floating-status {
+    bottom: 0.5rem;
   }
 }
 
@@ -336,13 +307,7 @@ body {
 /* High contrast mode support */
 @media (prefers-contrast: high) {
   :root {
-    --border-color: #000000;
-    --text-secondary: #000000;
-  }
-
-  [data-theme="dark"] {
-    --border-color: #ffffff;
-    --text-secondary: #ffffff;
+    --text-secondary: var(--text-primary);
   }
 }
 
@@ -350,17 +315,36 @@ body {
 .reminder-input:focus {
   outline: 2px solid var(--accent-color);
   outline-offset: -2px;
+  border-radius: 4px;
+}
+
+/* Custom scrollbar for textarea */
+.reminder-input::-webkit-scrollbar {
+  width: 8px;
+}
+
+.reminder-input::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.reminder-input::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.reminder-input::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
 }
 
 /* Print styles */
 @media print {
-  .header,
-  .footer,
+  .floating-controls,
+  .floating-status,
   .modal {
     display: none;
   }
 
-  .main-content {
+  .app-container {
     padding: 0;
   }
 
@@ -369,5 +353,7 @@ body {
     padding: 1rem;
     background: white;
     color: black;
+    font-size: 16px;
+    text-align: left;
   }
 }
