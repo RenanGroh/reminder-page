@@ -35,13 +35,18 @@
 
     <!-- Main textarea centered on screen -->
     <div class="app-container">
-      <textarea
-        id="reminder-textarea"
-        class="reminder-input"
-        placeholder="What's on your mind?"
-        spellcheck="true"
-        autofocus
-      ></textarea>
+      <div class="textarea-wrapper">
+        <textarea
+          id="reminder-textarea"
+          class="reminder-input"
+          placeholder=""
+          spellcheck="true"
+          autofocus
+        ></textarea>
+        <div id="custom-placeholder" class="custom-placeholder">
+          What's on your mind<span class="blinking-question">?</span>
+        </div>
+      </div>
     </div>
 
     <!-- Floating status info -->

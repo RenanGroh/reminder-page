@@ -13,6 +13,7 @@ class DailyReminderApp {
     this.modal = document.getElementById("confirmation-modal");
     this.confirmClear = document.getElementById("confirm-clear");
     this.cancelClear = document.getElementById("cancel-clear");
+    this.customPlaceholder = document.getElementById("custom-placeholder");
 
     this.STORAGE_KEY = "daily-reminder-content";
     this.THEME_KEY = "daily-reminder-theme";
@@ -30,6 +31,7 @@ class DailyReminderApp {
     this.loadTheme();
     this.bindEvents();
     this.updateCharCount();
+    this.updatePlaceholderVisibility();
     this.registerServiceWorker();
 
     // Focus on textarea after everything loads
@@ -87,6 +89,7 @@ class DailyReminderApp {
    */
   handleInput() {
     this.updateCharCount();
+    this.updatePlaceholderVisibility();
     this.setSaveStatus("saving");
 
     // Clear existing timeout
@@ -98,6 +101,21 @@ class DailyReminderApp {
     this.saveTimeout = setTimeout(() => {
       this.saveContent();
     }, this.SAVE_DELAY);
+  }
+
+  /**
+   * Update placeholder visibility based on textarea content
+   */
+  updatePlaceholderVisibility() {
+    if (this.customPlaceholder) {
+      if (this.textarea.value.trim() === '') {
+        this.customPlaceholder.style.opacity = '0.6';
+        this.customPlaceholder.style.pointerEvents = 'none';
+      } else {
+        this.customPlaceholder.style.opacity = '0';
+        this.customPlaceholder.style.pointerEvents = 'none';
+      }
+    }
   }
 
   /**
