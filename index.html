@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daily Reminder</title>
+    <meta
+      name="description"
+      content="A minimalist daily note and reminder pad"
+    />
+    <meta name="theme-color" content="#1a1a1a" />
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json" />
+
+    <!-- Favicon -->
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📝</text></svg>"
+    />
+
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- Header with controls -->
+      <header class="header">
+        <h1 class="app-title">Daily Reminder</h1>
+        <div class="controls">
+          <button id="theme-toggle" class="btn btn-icon" title="Toggle theme">
+            🌓
+          </button>
+          <button
+            id="clear-btn"
+            class="btn btn-danger"
+            title="Clear all content"
+          >
+            Clear
+          </button>
+        </div>
+      </header>
+
+      <!-- Main content area -->
+      <main class="main-content">
+        <textarea
+          id="reminder-textarea"
+          class="reminder-input"
+          placeholder="Start typing your daily reminder or notes here..."
+          spellcheck="true"
+          autofocus
+        ></textarea>
+      </main>
+
+      <!-- Footer with info -->
+      <footer class="footer">
+        <div class="status-info">
+          <span id="save-status" class="save-status">Ready</span>
+          <span class="separator">•</span>
+          <span id="char-count" class="char-count">0 characters</span>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmation-modal" class="modal hidden">
+      <div class="modal-content">
+        <h3>Clear All Content?</h3>
+        <p>
+          This action cannot be undone. Are you sure you want to clear all your
+          notes?
+        </p>
+        <div class="modal-actions">
+          <button id="confirm-clear" class="btn btn-danger">Yes, Clear</button>
+          <button id="cancel-clear" class="btn btn-secondary">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
